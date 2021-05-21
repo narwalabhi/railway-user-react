@@ -5,12 +5,10 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import Switch from "@material-ui/core/Switch";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormGroup from "@material-ui/core/FormGroup";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -21,19 +19,15 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
-  links:{
-    textTransform: 'capitalize',
-  }
+  links: {
+    textTransform: "capitalize",
+  },
 }));
 const Header = () => {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
+  const isLoggedIn = localStorage.getItem("user");
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -58,10 +52,20 @@ const Header = () => {
           <Typography variant="h6" className={classes.title}>
             Railway
           </Typography>
-          <Button color="inherit" className={classes.links}><Typography variant="h6">Home</Typography></Button>
-          <Button color="inherit" className={classes.links}><Typography variant="h6">PNR Enquiry</Typography></Button>
-          <Button color="inherit" className={classes.links}><Typography variant="h6">Help</Typography></Button>
-          {auth && (
+          <Link to="/" style={{ color: "#FFF" }}>
+            <Button color="inherit" className={classes.links}>
+              <Typography variant="h6">Home</Typography>
+            </Button>
+          </Link>
+          <Link to="/pnr" style={{ color: "#FFF" }}>
+            <Button color="inherit" className={classes.links}>
+              <Typography variant="h6">PNR Enquiry</Typography>
+            </Button>
+          </Link>
+          <Button color="inherit" className={classes.links}>
+            <Typography variant="h6">Help</Typography>
+          </Button>
+          {isLoggedIn && (
             <div>
               <IconButton
                 aria-label="account of current user"
@@ -87,8 +91,9 @@ const Header = () => {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My Bookings</MenuItem>
+                <Link to="/profile" style={{ color: "#212121" }}>
+                  <MenuItem onClick={handleClose}>Profile</MenuItem>
+                </Link>
                 <MenuItem onClick={handleClose}>Log Out</MenuItem>
               </Menu>
             </div>

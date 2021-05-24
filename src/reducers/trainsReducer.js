@@ -1,7 +1,6 @@
-
-export const bookingReducer = (state = null, action) => {
+export const trainReducer = (state = {}, action) => {
   switch (action.type) {
-    case "BOOK_NOW":
+    case "GET_TRAIN":
       return action.payload;
     default:
       return state;

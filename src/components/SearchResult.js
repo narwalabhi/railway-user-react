@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Redirect } from "react-router";
 import TripItem from "./TripItem";
 
-const SearchResult = () => {
+const SearchResult = (props) => {
   const trips = useSelector((state) => {
     console.log(state);
     return state.trips;
@@ -16,6 +17,10 @@ const SearchResult = () => {
     return <TripItem trip={trip} key={trip.tripId} from={from} to={to} />;
   });
 
+  if(!(from && to)){
+    return <Redirect to="/"/>
+  }
+
   return (
     <div className="ui container">
       <div className="ui header" style={{ marginTop: "2% " }}>
@@ -23,7 +28,7 @@ const SearchResult = () => {
           trips.length > 1 ? "s" : ""
         } for ${from.name} => ${to.name}`}</h5>
       </div>
-      <div className="ui relaxed divided list">{renderedItems}</div>
+      <div className="ui relaxed divided list" style={{marginBottom:'2%'}}>{renderedItems}</div>
     </div>
   );
 };

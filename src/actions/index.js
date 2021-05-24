@@ -49,14 +49,64 @@ export const bookTicket = (body, token) => {
         "Content-Type": "application/json",
         authorization: `Bearer ${token}`,
       },
-    })
+    });
     dispatch({
-      type:"BOOK_NOW",
-      payload: response.data
+      type: "BOOK_NOW",
+      payload: response.data,
     });
   };
 };
 
+export const getTicketByPNR = (pnr, token) => {
+  return async (dispatch) => {
+    const response = await auth.get(`/booking/get/${pnr}`, {
+      mode: "no-cors",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
+    dispatch({
+      type: "BOOK_NOW",
+      payload: response.data,
+    });
+  };
+};
+
+export const getStation = (code, token) => {
+  return async (dispatch) => {
+    const response = await auth.get(`/train/stations/get/${code}`, {
+      mode: "no-cors",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
+    dispatch({
+      type: "GET_STATION",
+      payload: response.data,
+    });
+  };
+};
+
+export const getTrain = (number, token) => {
+  return async (dispatch) => {
+    const response = await auth.get(`/train/get/${number}`, {
+      mode: "no-cors",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
+    dispatch({
+      type: "GET_TRAIN",
+      payload: response.data,
+    });
+  };
+};
 
 export const contactInfoEmail = (email) => {
   return {
@@ -71,4 +121,3 @@ export const contactInfoMobile = (mobile) => {
     payload: mobile,
   };
 };
-

@@ -41,13 +41,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchForm = () => {
+const SearchForm = ({history}) => {
   const classes = useStyles();
   const [fromSelectedStation, setFromSelectedStation] = useState(null);
   const [toSelectedStation, setToSelectedStation] = useState(null);
   const [selectedClass, setSelectedClass] = useState("");
-  const [btnClick, setBtnClick] = useState(false);
-  const token = JSON.parse(localStorage.getItem("user")).jwt;
+ const token = JSON.parse(localStorage.getItem("user")).jwt;
   const [selectedDate, setSelectedDate] = useState(new Date());
   const dispatch = useDispatch();
 
@@ -86,14 +85,11 @@ const SearchForm = () => {
         token
       )
     );
-    setBtnClick(true);
     localStorage.setItem("from", JSON.stringify(fromSelectedStation));
     localStorage.setItem("to", JSON.stringify(toSelectedStation));
+    history.push("/search-result");
   };
 
-  if(btnClick){
-    return <Redirect to="/search-result"/>
-  }
 
   return (
     <Paper className={classes.paper}>

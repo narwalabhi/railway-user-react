@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getElementError } from "@testing-library/dom";
 import auth from "../apis/auth";
 import { bookTicket } from "../actions";
+import { Redirect } from "react-router";
 
-const BookingStepper = ({history}) => {
+const BookingStepper = ({ history }) => {
   const login = JSON.parse(localStorage.getItem("user"));
   const dispatch = useDispatch();
   const tripSchedule = JSON.parse(localStorage.getItem("tripSchedule"));
@@ -31,6 +32,18 @@ const BookingStepper = ({history}) => {
     },
   ]);
 
+  if (
+    !(login &&
+    selectedClass &&
+    tripSchedule &&
+    fromStation &&
+    toStation &&
+    train)
+  ) {
+    console.log("if")
+    return <Redirect to="/" />;
+  }
+
   const getEmail = () => (email ? email : login.user.email);
 
   const getMobile = () => (mobile ? mobile : login.user.mobileNumber);
@@ -45,7 +58,8 @@ const BookingStepper = ({history}) => {
       },
       email: getEmail(),
       passengers,
-      mobile: getMobile()
+      mobile: getMobile(),
+      userId: login.user.id
     };
     // const ticket = auth
     //   .post("/booking/book", bookRequestBody, {
@@ -125,9 +139,7 @@ const BookingStepper = ({history}) => {
           </div>
         );
       case 2:
-        return <div style={{marginLeft:'2%'}}>
-          Payment
-        </div>;
+        return <div style={{ marginLeft: "2%" }}>Payment</div>;
       default:
         return "foo";
     }
@@ -156,7 +168,7 @@ const BookingStepper = ({history}) => {
         Back
       </Button>
       <Button variant="outlined" color="primary" onClick={handleNextClick}>
-        {activeStep === 2? 'Book' : 'Next'}
+        {activeStep === 2 ? "Book" : "Next"}
       </Button>
     </div>
   );

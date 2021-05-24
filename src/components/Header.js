@@ -37,6 +37,11 @@ const Header = () => {
     setAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("user")
+    handleClose();
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -94,7 +99,9 @@ const Header = () => {
                 <Link to="/profile" style={{ color: "#212121" }}>
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
                 </Link>
-                <MenuItem onClick={handleClose}>Log Out</MenuItem>
+                <Link to="/login" style={{ color: "#212121" }}>
+                <MenuItem onClick={handleLogout}>Log Out</MenuItem>
+                </Link>
               </Menu>
             </div>
           )}

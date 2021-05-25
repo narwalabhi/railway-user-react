@@ -26,7 +26,7 @@ const PNREnquiry = () => {
   };
 
   return (
-    <div className="ui container">
+    <div className="ui container" style={{marginTop:'2%'}}>
       <form onSubmit={handleSubmit}>
         <TextField
           fullWidth

@@ -108,6 +108,23 @@ export const getTrain = (number, token) => {
   };
 };
 
+export const getTicketsByUser = (userId, token) => {
+  return async (dispatch) => {
+    const response = await auth.get(`/booking/get-by-user/${userId}`, {
+      mode: "no-cors",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
+    dispatch({
+      type: "USER_TICKETS",
+      payload: response.data,
+    });
+  };
+};
+
 export const contactInfoEmail = (email) => {
   return {
     type: "CONTACT_INFO_EMAIL",

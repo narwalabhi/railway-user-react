@@ -5,6 +5,7 @@ import { contactsEmail, contactsMobile } from "./contactInfoReducer";
 import { stationsReducer } from "./stationsReducer";
 import { trainReducer } from "./trainsReducer";
 import { tripSearch } from "./tripSearchReducer";
+import { userTicketsReducer } from "./userTicketsReducer";
 
 export default combineReducers({
   login: loginReducer,
@@ -14,4 +15,5 @@ export default combineReducers({
   ticket: bookingReducer,
   train: trainReducer,
   stations: stationsReducer,
+  tickets : userTicketsReducer
 });

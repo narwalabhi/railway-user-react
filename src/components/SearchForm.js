@@ -10,16 +10,12 @@ import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
-import axios from "axios";
-import SearchIcon from "@material-ui/icons/Search";
 import { MenuItem, Paper } from "@material-ui/core";
 import React, { useState } from "react";
 import StationAutoComplete from "./StationAutoComplete";
 import { Search } from "@material-ui/icons";
 import { useDispatch } from "react-redux";
 import { searchTrips } from "../actions/index";
-import { Redirect } from "react-router";
-import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -41,12 +37,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchForm = ({history}) => {
+const SearchForm = ({ history }) => {
   const classes = useStyles();
   const [fromSelectedStation, setFromSelectedStation] = useState(null);
   const [toSelectedStation, setToSelectedStation] = useState(null);
   const [selectedClass, setSelectedClass] = useState("");
- const token = JSON.parse(localStorage.getItem("user")).jwt;
+  const token = JSON.parse(localStorage.getItem("user")).jwt;
   const [selectedDate, setSelectedDate] = useState(new Date());
   const dispatch = useDispatch();
 
@@ -76,7 +72,7 @@ const SearchForm = ({history}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("submit" +selectedDate.toUTCString());
+    console.log("submit" + selectedDate.toUTCString());
     dispatch(
       searchTrips(
         fromSelectedStation.code,
@@ -89,7 +85,6 @@ const SearchForm = ({history}) => {
     localStorage.setItem("to", JSON.stringify(toSelectedStation));
     history.push("/search-result");
   };
-
 
   return (
     <Paper className={classes.paper}>

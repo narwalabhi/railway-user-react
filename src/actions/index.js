@@ -1,3 +1,4 @@
+import axios from "axios";
 import auth from "../apis/auth";
 
 export const login = (email, password) => {
@@ -20,18 +21,10 @@ export const login = (email, password) => {
   };
 };
 
-export const searchTrips = (from, to, date, token) => {
-  console.log(token);
+export const searchTrips = (from, to, date) => {
   return async (dispatch) => {
-    const response = await auth.get(
-      `/train/trip-schedules/get-trip-schedules-by-date-and-stations/${from}/${to}/${date}`,
-      {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      }
+    const response = await axios.get(
+      `http://localhost:8082/train/trip-schedules/get-trip-schedules-by-date-and-stations/${from}/${to}/${date}`
     );
     dispatch({
       type: "TRIP_SEARCH",
@@ -136,5 +129,11 @@ export const contactInfoMobile = (mobile) => {
   return {
     type: "CONTACT_INFO_MOBILE",
     payload: mobile,
+  };
+};
+
+export const logout = () => {
+  return {
+    type: "LOGOUT",
   };
 };

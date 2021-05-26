@@ -9,6 +9,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../actions";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -27,7 +29,8 @@ const Header = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const isLoggedIn = localStorage.getItem("user");
+  const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+  const dispatch = useDispatch();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -38,9 +41,10 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("user")
+    localStorage.clear();
+    dispatch(logout());
     handleClose();
-  }
+  };
 
   return (
     <div className={classes.root}>
@@ -70,7 +74,7 @@ const Header = () => {
           <Button color="inherit" className={classes.links}>
             <Typography variant="h6">Help</Typography>
           </Button>
-          {isLoggedIn && (
+          {isLoggedIn ? (
             <div>
               <IconButton
                 aria-label="account of current user"
@@ -99,11 +103,19 @@ const Header = () => {
                 <Link to="/profile" style={{ color: "#212121" }}>
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
                 </Link>
-                <Link to="/login" style={{ color: "#212121" }}>
-                <MenuItem onClick={handleLogout}>Log Out</MenuItem>
+                <Link to="/" style={{ color: "#212121" }}>
+                  <MenuItem onClick={handleLogout}>Log Out</MenuItem>
                 </Link>
               </Menu>
             </div>
+          ) : (
+            <Link to="/login" style={{ color: "#FFF" }}>
+              <Button color="inherit" className={classes.links}>
+                <Typography variant="h6" >
+                  Register/Login
+                </Typography>
+              </Button>
+            </Link>
           )}
         </Toolbar>
       </AppBar>

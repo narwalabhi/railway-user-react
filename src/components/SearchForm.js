@@ -42,7 +42,6 @@ const SearchForm = ({ history }) => {
   const [fromSelectedStation, setFromSelectedStation] = useState(null);
   const [toSelectedStation, setToSelectedStation] = useState(null);
   const [selectedClass, setSelectedClass] = useState("");
-  const token = JSON.parse(localStorage.getItem("user")).jwt;
   const [selectedDate, setSelectedDate] = useState(new Date());
   const dispatch = useDispatch();
 
@@ -74,12 +73,7 @@ const SearchForm = ({ history }) => {
     event.preventDefault();
     console.log("submit" + selectedDate.toUTCString());
     dispatch(
-      searchTrips(
-        fromSelectedStation.code,
-        toSelectedStation.code,
-        getDate(),
-        token
-      )
+      searchTrips(fromSelectedStation.code, toSelectedStation.code, getDate())
     );
     localStorage.setItem("from", JSON.stringify(fromSelectedStation));
     localStorage.setItem("to", JSON.stringify(toSelectedStation));

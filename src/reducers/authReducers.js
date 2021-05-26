@@ -9,6 +9,12 @@ export const loginReducer = (state = initialState, action) => {
     case "LOGIN_SUCCESS":
       console.log(state);
       return { ...state, isLoggedIn: true, user: action.payload };
+    case "LOGOUT":
+      return {
+        ...state,
+        isLoggedIn: false,
+        user: null,
+      };
     default:
       return state;
   }

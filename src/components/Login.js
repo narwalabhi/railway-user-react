@@ -3,7 +3,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -13,16 +12,8 @@ import Container from "@material-ui/core/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../actions/index";
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © Railway Reservation"}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -127,21 +118,18 @@ const Login = (props) => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link href="#">
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link to="/register">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
     </Container>
   );
 };

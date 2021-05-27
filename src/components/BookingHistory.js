@@ -68,13 +68,23 @@ const BookingHistory = () => {
     setValue(newValue);
   };
 
-  const upComingTrips = tickets.filter(
-    (ticket) => new Date(ticket.journeyDate) >= dateNow
-  );
+  const upComingTrips = tickets
+    .filter(
+      (ticket) => new Date(ticket.journeyDate).getTime() >= dateNow.getTime()
+    )
+    .sort(
+      (a, b) =>
+        new Date(b.journeyDate).getTime() - new Date(a.journeyDate).getTime()
+    );
 
-  const prevTrips = tickets.filter(
-    (ticket) => new Date(ticket.journeyDate) <= dateNow
-  );
+  const prevTrips = tickets
+    .filter(
+      (ticket) => new Date(ticket.journeyDate).getTime() <= dateNow.getTime()
+    )
+    .sort(
+      (a, b) =>
+        new Date(b.journeyDate).getTime() - new Date(a.journeyDate).getTime()
+    );
 
   return (
     <div className={classes.root}>

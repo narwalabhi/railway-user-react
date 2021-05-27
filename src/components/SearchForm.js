@@ -65,8 +65,8 @@ const SearchForm = ({ history }) => {
   const getDate = () => {
     const date = new Date(selectedDate);
     return `${date.getFullYear()}-${
-      (date.getMonth() > 9 ? "" : "0") + date.getMonth()
-    }-${(date.getDate() > 9 ? "" : 0) + date.getDate()}`;
+      (date.getMonth() >= 9 ? "" : "0") + (date.getMonth()+1)
+    }-${(date.getDate() > 9 ? "" : "0") + date.getDate()}`;
   };
 
   const handleSubmit = (event) => {
